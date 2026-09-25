@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>井字棋 · Tic-Tac-Toe</title>
+<style>
+  :root { --x:#38e1ff; --o:#ff5fa2; }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; min-height:100vh; display:grid; place-items:center;
+    background: radial-gradient(900px 600px at 15% -10%, #1e2a5a 0%, #0b0e1e 60%), #0b0e1e;
+    color:#e8ecff; font-family: system-ui, "Microsoft YaHei", "PingFang SC", sans-serif;
+    padding:18px;
+  }
+  .wrap {
+    width:min(94vw, 440px); padding:20px; border-radius:20px;
+    background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+    box-shadow: 0 24px 60px rgba(0,0,0,.5); backdrop-filter: blur(12px);
+  }
+  h1 { margin:0; font-size:21px; letter-spacing:3px; }
+  .sub { font-size:11px; color:#98a4d4; letter-spacing:1px; margin:4px 0 14px; }
+  .row { display:flex; gap:8px; margin-bottom:9px; }
+  .seg { flex:1; display:flex; gap:2px; padding:3px; border-radius:11px; background:rgba(255,255,255,.06); }
+  .seg button {
+    flex:1; border:0; background:transparent; color:#98a4d4; cursor:pointer;
+    padding:8px 0; border-radius:9px; font-size:13px; font-family:inherit; transition:.18s;
+  }
+  .seg button.on { background:linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; box-shadow:0 4px 14px rgba(99,102,241,.45); }
+  .status { text-align:center; height:24px; line-height:24px; font-size:14px; letter-spacing:1px; color:#c3cdf5; }
+  .status.win { color:#fff; font-weight:700; }
+  .board { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin:12px 0; aspect-ratio:1/1; }
+  .cell {
+    border:0; border-radius:15px; background:rgba(255,255,255,.07); cursor:pointer;
+    display:grid; place-items:center; padding:0; font-family:inherit; font-weight:800;
+    font-size:clamp(32px,11vw,50px); color:#e8ecff; transition:transform .12s, background .2s;
+  }
+  .cell:hover:not(:disabled) { background:rgba(255,255,255,.15); transform:translateY(-2px); }
+  .cell:disabled { cursor:default; }
+  .cell.x .mark { color:var(--x); text-shadow:0 0 20px rgba(56,225,255,.55); }
+  .cell.o .mark { color:var(--o); text-shadow:0 0 20px rgba(255,95,162,.55); }
+  .cell .mark { display:block; animation:pop .16s ease-out; }
+  .cell.win { background:linear-gradient(135deg, rgba(56,225,255,.3), rgba(255,95,162,.3)); animation:glow .9s ease-in-out infinite alternate; }
+  @keyframes pop { from { transform:scale(.35); opacity:0; } to { transform:scale(1); opacity:1; } }
+  @keyframes glow { from { box-shadow:0 0 0 rgba(255,255,255,0); } to { box-shadow:0 0 26px rgba(160,190,255,.55); } }
+  .score { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:4px; text-align:center; }
+  .score > div { background:rgba(255,255,255,.05); border-radius:11px; padding:8px 0; font-size:11px; color:#98a4d4; letter-spacing:1px; }
+  .score b { display:block; margin-top:3px; font-size:18px; color:#fff; }
+  .footer { display:flex; gap:8px; margin-top:12px; }
+  .btn { flex:1; border:0; border-radius:11px; padding:10px 0; cursor:pointer; font-size:13px; font-family:inherit;
+         background:rgba(255,255,255,.1); color:#e8ecff; transition:.18s; }
+  .btn:hover { background:rgba(255,255,255,.18); }
+  .btn.primary { background:linear-gradient(135deg,#3b82f6,#8b5cf6); font-weight:600; }
+  .hint { margin-top:11px; text-align:center; font-size:11px; color:#7c88b8; line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>井字棋</h1>
+  <div class="sub">TIC · TAC · TOE</div>
+
+  <div class="row">
+    <div class="seg" id="modeSeg">
+      <button data-mode="pve" class="on">人机对战</button>
+      <button data-mode="pvp">双人对战</button>
+    </div>
+  </div>
+
+  <div class="row" id="diffRow">
+    <div class="seg" id="diffSeg">
+      <button data-diff="easy">简单</button>
+      <button data-diff="normal" class="on">普通</button>
+      <button data-diff="hard">无敌</button>
+    </div>
+  </div>
+
+  <div class="status" id="status">轮到你落子（X）</div>
+  <div class="board" id="board"></div>
+
+  <div class="score">
+    <div>X 获胜<b id="scoreX">0</b></div>
+    <div>平局<b id="scoreD">0</b></div>
+    <div>O 获胜<b id="scoreO">0</b></div>
+  </div>
+
+  <div class="footer">
+    <button class="btn primary" id="restart">重新开始</button>
+    <button class="btn" id="reset">清零比分</button>
+    <button class="btn" id="sound">🔊 音效</button>
+  </div>
+
+  <div class="hint">点击格子落子 · 键盘 1-9（小键盘布局）· R 重开</div>
+</div>
+
+<script>
+(function () {
+  const HUMAN = "X", AI = "O";
+  const WIN_LINES = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+  const BEST_CHANCE = { easy: 0.25, normal: 0.75, hard: 1 };
+
+  const boardEl = document.getElementById("board");
+  const statusEl = document.getElementById("status");
+  const modeSeg = document.getElementById("modeSeg");
+  const diffSeg = document.getElementById("diffSeg");
+  const diffRow = document.getElementById("diffRow");
+  const scoreX = document.getElementById("scoreX");
+  const scoreO = document.getElementById("scoreO");
+  const scoreD = document.getElementById("scoreD");
+
+  let board = new Array(9).fill("");
+  let turn = HUMAN;
+  let over = false;
+  let winner = "";
+  let cells = [];
+  let mode = "pve";
+  let difficulty = "normal";
+  let scores = { X: 0, O: 0, D: 0 };
+  let thinking = false;
+  let soundOn = true;
+  let audioCtx = null;
+
+  for (let i = 0; i < 9; i++) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "cell";
+    btn.dataset.index = String(i);
+    btn.addEventListener("click", () => humanPlay(i));
+    boardEl.appendChild(btn);
+    cells.push(btn);
+  }
+
+  function beep(freq, dur, type) {
+    if (!soundOn) return;
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      audioCtx = audioCtx || new Ctx();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type || "sine";
+      osc.frequency.value = freq;
+      const t = audioCtx.currentTime;
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.07, t + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + dur + 0.02);
+    } catch (err) { /* 忽略音频异常 */ }
+  }
+
+  function winnerLine(b) {
+    for (const line of WIN_LINES) {
+      const [a, c, d] = line;
+      if (b[a] && b[a] === b[c] && b[a] === b[d]) return line;
+    }
+    return null;
+  }
+
+  function isFull(b) { return b.every(v => v !== ""); }
+
+  function minimax(b, player, depth, alpha, beta) {
+    const line = winnerLine(b);
+    if (line) return b[line[0]] === AI ? 10 - depth : depth - 10;
+    if (isFull(b)) return 0;
+
+    if (player === AI) {
+      let best = -Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (b[i]) continue;
+        b[i] = AI;
+        best = Math.max(best, minimax(b, HUMAN, depth + 1, alpha, beta));
+        b[i] = "";
+        alpha = Math.max(alpha, best);
+        if (beta <= alpha) break;
+      }
+      return best;
+    }
+    let best = Infinity;
+    for (let i = 0; i < 9; i++) {
+      if (b[i]) continue;
+      b[i] = HUMAN;
+      best = Math.min(best, minimax(b, AI, depth + 1, alpha, beta));
+      b[i] = "";
+      beta = Math.min(beta, best);
+      if (beta <= alpha) break;
+    }
+    return best;
+  }
+
+  function bestMove(b) {
+    let bestScore = -Infinity, move = -1;
+    for (let i = 0; i < 9; i++) {
+      if (b[i]) continue;
+      b[i] = AI;
+      const s = minimax(b, HUMAN, 1, -Infinity, Infinity);
+      b[i] = "";
+      if (s > bestScore) { bestScore = s; move = i; }
+    }
+    return move;
+  }
+
+  function randomMove(b) {
+    const empties = [];
+    for (let i = 0; i < 9; i++) if (!b[i]) empties.push(i);
+    return empties[Math.floor(Math.random() * empties.length)];
+  }
+
+  function chooseMove() {
+    const chance = BEST_CHANCE[difficulty] != null ? BEST_CHANCE[difficulty] : 1;
+    if (Math.random() < chance) {
+      const m = bestMove(board);
+      if (m >= 0) return m;
+    }
+    return randomMove(board);
+  }
+
+  function draw(i, player) {
+    board[i] = player;
+    const cell = cells[i];
+    cell.classList.add(player === HUMAN ? "x" : "o");
+    cell.innerHTML = '<span class="mark">' + player + "</span>";
+    cell.disabled = true;
+    beep(player === HUMAN ? 620 : 420, 0.09, "triangle");
+  }
+
+  function setStatus(text, isWin) {
+    statusEl.textContent = text;
+    statusEl.classList.toggle("win", !!isWin);
+  }
+
+  function updateScores() {
+    scoreX.textContent = String(scores.X);
+    scoreO.textContent = String(scores.O);
+    scoreD.textContent = String(scores.D);
+  }
+
+  function nameOf(player) {
+    if (mode === "pvp") return player === HUMAN ? "玩家 1（X）" : "玩家 2（O）";
+    return player === HUMAN ? "你" : "电脑";
+  }
+
+  function idleStatus() {
+    if (mode === "pvp") setStatus("轮到 " + turn + " 落子", false);
+    else setStatus(turn === HUMAN ? "轮到你落子（X）" : "电脑思考中…", false);
+  }
+
+  function settle() {
+    const line = winnerLine(board);
+    if (line) {
+      over = true;
+      winner = board[line[0]];
+      line.forEach(i => cells[i].classList.add("win"));
+      cells.forEach(c => { c.disabled = true; });
+      if (winner === HUMAN) scores.X++; else scores.O++;
+      updateScores();
+      setStatus(nameOf(winner) + " 获胜！", true);
+      beep(880, 0.18, "sine");
+      setTimeout(() => beep(1180, 0.22, "sine"), 140);
+      return true;
+    }
+    if (isFull(board)) {
+      over = true;
+      winner = "D";
+      scores.D++;
+      updateScores();
+      setStatus("平局！", true);
+      beep(300, 0.2, "sine");
+      return true;
+    }
+    return false;
+  }
+
+  function humanPlay(i) {
+    if (over || thinking || board[i]) return;
+    if (mode === "pve" && turn !== HUMAN) return;
+    draw(i, turn);
+    if (settle()) return;
+    turn = turn === HUMAN ? AI : HUMAN;
+    idleStatus();
+    if (mode === "pve" && turn === AI) aiTurn();
+  }
+
+  function aiTurn() {
+    thinking = true;
+    cells.forEach(c => { if (!over) c.disabled = false; });
+    setTimeout(() => {
+      if (over) { thinking = false; return; }
+      const move = chooseMove();
+      thinking = false;
+      draw(move, AI);
+      if (settle()) return;
+      turn = HUMAN;
+      idleStatus();
+    }, 280 + Math.random() * 260);
+  }
+
+  function newGame() {
+    board = new Array(9).fill("");
+    turn = HUMAN;
+    over = false;
+    winner = "";
+    thinking = false;
+    cells.forEach((c, i) => {
+      c.className = "cell";
+      c.innerHTML = "";
+      c.disabled = false;
+      c.dataset.index = String(i);
+    });
+    idleStatus();
+  }
+
+  modeSeg.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-mode]");
+    if (!btn) return;
+    mode = btn.dataset.mode;
+    [...modeSeg.children].forEach(b => b.classList.toggle("on", b === btn));
+    diffRow.style.display = mode === "pve" ? "flex" : "none";
+    newGame();
+  });
+
+  diffSeg.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-diff]");
+    if (!btn) return;
+    difficulty = btn.dataset.diff;
+    [...diffSeg.children].forEach(b => b.classList.toggle("on", b === btn));
+    newGame();
+  });
+
+  document.getElementById("restart").addEventListener("click", newGame);
+  document.getElementById("reset").addEventListener("click", () => {
+    scores = { X: 0, O: 0, D: 0 };
+    updateScores();
+    newGame();
+  });
+  document.getElementById("sound").addEventListener("click", e => {
+    soundOn = !soundOn;
+    e.currentTarget.textContent = soundOn ? "🔊 音效" : "🔇 静音";
+    if (soundOn) beep(700, 0.1, "sine");
+  });
+
+  const NUMPAD_TO_INDEX = { "7":0, "8":1, "9":2, "4":3, "5":4, "6":5, "1":6, "2":7, "3":8 };
+  document.addEventListener("keydown", e => {
+    if (e.key === "r" || e.key === "R") { newGame(); return; }
+    const idx = NUMPAD_TO_INDEX[e.key];
+    if (idx != null) humanPlay(idx);
+  });
+
+  newGame();
+})();
+</script>
+</body>
+</html>
