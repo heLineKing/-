@@ -1,4 +1,12 @@
+using System;
 using UnityEngine;
+
+enum LastOperate
+{
+    LEFT = -1,
+    NUM = 0,
+    RIGHT = 1
+}
 
 public class PlayerMove : MonoBehaviour
 {
@@ -7,12 +15,18 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private PlayerDash dash;
+
+    private PlayerJump jump;
+
+    private LastOperate lastOperate;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         dash=GetComponent<PlayerDash>();
+        jump = GetComponent<PlayerJump>();
     }
 
     private void FixedUpdate()
@@ -21,18 +35,27 @@ public class PlayerMove : MonoBehaviour
         {
             return;
         }
-        // -1 向左、0 不动、+1 向右。
-        float direction = 0f;
 
+        // -1 向左、0 不动、+1 向右。
+        if (jump.IsGrounded())
+        {
+            lastOperate = LastOperate.NUM;
+        }
         if (Input.GetKey(KeyCode.A))
         {
-            direction -= 1f;
+            lastOperate = LastOperate.LEFT;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            direction += 1f;
+            lastOperate = LastOperate.RIGHT;
         }
+
+
+        // -1 向左、0 不动、+1 向右。
+        float direction = 0f;
+
+        direction += Convert.ToInt16(lastOperate);
 
         body.velocity = new Vector2(direction * moveSpeed, body.velocity.y);
         //转向
