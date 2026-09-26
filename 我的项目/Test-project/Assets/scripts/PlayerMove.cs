@@ -3,22 +3,24 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-
     private Rigidbody2D body;
-
     private SpriteRenderer spriteRenderer;
-
     private Animator animator;
-
+    private PlayerDash dash;
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        dash=GetComponent<PlayerDash>();
     }
 
     private void FixedUpdate()
     {
+        if(dash.IsDashing)
+        {
+            return;
+        }
         // -1 向左、0 不动、+1 向右。
         float direction = 0f;
 
