@@ -10,6 +10,7 @@ public class PlayerJump : MonoBehaviour
     private bool jumpRequested;
     private Animator animator;
     private AudioSource jumpAudio;
+    private SoundServer soundServer;
     private PlayerDash dash;
     private void Awake()
     {
@@ -17,6 +18,11 @@ public class PlayerJump : MonoBehaviour
         animator = GetComponent<Animator>();
         jumpAudio = GetComponent<AudioSource>();
         dash=GetComponent<PlayerDash>();
+        GameObject soundServerGo = GameObject.Find("SoundServer");
+        if (soundServerGo != null)
+        {
+            soundServer = soundServerGo.GetComponent<SoundServer>();
+        }
     }
 
     private void FixedUpdate()
@@ -41,7 +47,8 @@ public class PlayerJump : MonoBehaviour
         {
             body.velocity = new Vector2(body.velocity.x, jumpForce);
 
-            jumpAudio.Play();
+            //jumpAudio.Play();
+            soundServer.ApplySoundCallOneShot(transform.position, "Sounds/Player Jump");
         }
         animator.SetFloat("Jump", body.velocity.y);//跳跃动画
     }
