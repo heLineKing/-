@@ -1,13 +1,5 @@
 using System;
 using UnityEngine;
-
-enum LastOperate
-{
-    LEFT = -1,
-    NUM = 0,
-    RIGHT = 1
-}
-
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
@@ -30,13 +22,14 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
+        //Debug.Log("PlayerMove FixedUpdate");
         // -1 向左、0 不动、+1 向右。
         float direction = 0f;
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             direction = -1f;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             direction = 1f;
         }
