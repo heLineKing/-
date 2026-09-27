@@ -3,11 +3,7 @@
   "WorkspaceRootPath": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|d:\\unity\\project\\team\\\u6211\u7684\u9879\u76EE\\test-project\\assets\\scripts\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|d:\\unity\\project\\team\\\u6211\u7684\u9879\u76EE\\test-project\\assets\\scripts\\playerdeath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\assets\\scripts\\playerdeath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerdeath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -15,7 +11,11 @@
       "RelativeMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerjump.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\assets\\scripts\\playerdash.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|d:\\unity\\project\\team\\\u6211\u7684\u9879\u76EE\\test-project\\assets\\scripts\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|d:\\unity\\project\\team\\\u6211\u7684\u9879\u76EE\\test-project\\assets\\scripts\\playerdash.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerdash.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,45 +26,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "PlayerJump.cs",
               "DocumentMoniker": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\PlayerJump.cs",
               "RelativeDocumentMoniker": "Assets\\scripts\\PlayerJump.cs",
               "ToolTip": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\PlayerJump.cs",
               "RelativeToolTip": "Assets\\scripts\\PlayerJump.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAmwBIAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowDIAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-09-26T11:46:23.908Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Playerdeath.cs",
-              "DocumentMoniker": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\Playerdeath.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\Playerdeath.cs",
-              "ToolTip": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\Playerdeath.cs",
-              "RelativeToolTip": "Assets\\scripts\\Playerdeath.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAYwBgAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-27T01:41:32.89Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PlayerMove.cs",
-              "DocumentMoniker": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\PlayerMove.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\PlayerMove.cs",
-              "ToolTip": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\PlayerMove.cs",
-              "RelativeToolTip": "Assets\\scripts\\PlayerMove.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAmwCYAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-26T11:40:19.994Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
@@ -75,9 +50,36 @@
               "RelativeDocumentMoniker": "Assets\\scripts\\Playerdash.cs",
               "ToolTip": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\Playerdash.cs",
               "RelativeToolTip": "Assets\\scripts\\Playerdash.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAA2wAYAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-26T11:46:24.315Z"
+              "WhenOpened": "2026-09-27T13:24:58.608Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PlayerMove.cs",
+              "DocumentMoniker": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\PlayerMove.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\PlayerMove.cs",
+              "ToolTip": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\PlayerMove.cs",
+              "RelativeToolTip": "Assets\\scripts\\PlayerMove.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAcwBgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T13:22:20.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Playerdeath.cs",
+              "DocumentMoniker": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\Playerdeath.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Playerdeath.cs",
+              "ToolTip": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\Playerdeath.cs",
+              "RelativeToolTip": "Assets\\scripts\\Playerdeath.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwB0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-27T01:41:32.89Z",
+              "EditorCaption": ""
             }
           ]
         }

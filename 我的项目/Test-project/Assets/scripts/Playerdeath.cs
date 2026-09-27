@@ -9,6 +9,7 @@ public class Playerdeath : MonoBehaviour
     private GameObject SpawnPoint;
     private SoundServer SoundServe;
     private Animator animator;
+    public bool IsDead { get; private set; }
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -27,9 +28,11 @@ public class Playerdeath : MonoBehaviour
     {
         SoundServe.ApplySoundCallOneShot(transform.position, "Sounds/Player Death");
         animator.SetBool("Death", true);
-        //Debug.Log("Player died");
-        body.position = SpawnPoint.transform.position;
         body.velocity = Vector2.zero;
+        animator.SetFloat("Jump", 0f);
+        animator.SetFloat("speed", 0f);
+
+        body.position = SpawnPoint.transform.position;
         animator.SetBool("Death", false);
     }
 }
