@@ -12,6 +12,7 @@ public class PlayerDash : MonoBehaviour
     private float defaultGravityScale;
     private int dashCount;
     private PlayerJump jump;
+    private Playerdeath death;
     public bool IsDashing => dashTimer > 0f;
     private void Awake()
     {
@@ -19,10 +20,16 @@ public class PlayerDash : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultGravityScale = body.gravityScale;
         jump = GetComponent<PlayerJump>();
+        death = GetComponent<Playerdeath>();
     }
     private void Update()
     {
-        if(jump.IsGrounded())
+        if(death.IsDead)
+        {
+            dashTimer = 0f;
+            return;
+        }
+        if (jump.IsGrounded())
         {
             dashCount = 0;
         }
@@ -45,6 +52,10 @@ public class PlayerDash : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(death.IsDead)
+        {
+            return;
+        }
         // 冲刺倒计时
         if (dashTimer > 0f)
         {

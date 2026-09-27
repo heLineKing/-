@@ -12,12 +12,15 @@ public class PlayerJump : MonoBehaviour
     private AudioSource jumpAudio;
     private SoundServer soundServer;
     private PlayerDash dash;
+    private Playerdeath death
+        ;
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         jumpAudio = GetComponent<AudioSource>();
         dash=GetComponent<PlayerDash>();
+        death = GetComponent<Playerdeath>();
         GameObject soundServerGo = GameObject.Find("SoundServer");
         if (soundServerGo != null)
         {
@@ -27,7 +30,7 @@ public class PlayerJump : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(dash.IsDashing)
+        if(dash.IsDashing||death.IsDead)
         {
             jumpRequested = false;
             return;

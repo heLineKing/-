@@ -6,6 +6,8 @@ public class Playerdeath : MonoBehaviour
 { 
     [SerializeField] private LayerMask spike;
     private Rigidbody2D body;
+    private BoxCollider2D box;
+    private float defaultGravityScale;
     private GameObject SpawnPoint;
     private SoundServer SoundServe;
     private Animator animator;
@@ -13,26 +15,34 @@ public class Playerdeath : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        box=GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         SpawnPoint = GameObject.Find("SpawnPoint");
         SoundServe = GameObject.Find("SoundServer").GetComponent<SoundServer>();
+        defaultGravityScale=body.gravityScale;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if((spike & (1 << other.gameObject.layer)) != 0)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
-    private void Die()
+    private IEnumerator Die()
     {
+        IsDead = true;
         SoundServe.ApplySoundCallOneShot(transform.position, "Sounds/Player Death");
         animator.SetBool("Death", true);
         body.velocity = Vector2.zero;
+        body.gravityScale = defaultGravityScale;
         animator.SetFloat("Jump", 0f);
         animator.SetFloat("speed", 0f);
-
+        box.enabled = false;
+        yield return new WaitForSecondsRealtime(1);
         body.position = SpawnPoint.transform.position;
         animator.SetBool("Death", false);
+        IsDead = false;
+        box.enabled = true;
     }
+
 }

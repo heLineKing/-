@@ -7,17 +7,19 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private PlayerDash dash;
+    private Playerdeath death;
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         dash=GetComponent<PlayerDash>();
+        death = GetComponent<Playerdeath>();
     }
 
     private void FixedUpdate()
     {
-        if(dash.IsDashing)
+        if(dash.IsDashing||death.IsDead)
         {
             return;
         }
