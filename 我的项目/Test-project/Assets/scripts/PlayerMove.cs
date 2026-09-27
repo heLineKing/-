@@ -15,18 +15,12 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private PlayerDash dash;
-
-    private PlayerJump jump;
-
-    private LastOperate lastOperate;
-
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         dash=GetComponent<PlayerDash>();
-        jump = GetComponent<PlayerJump>();
     }
 
     private void FixedUpdate()
@@ -37,25 +31,15 @@ public class PlayerMove : MonoBehaviour
         }
 
         // -1 向左、0 不动、+1 向右。
-        if (jump.IsGrounded())
-        {
-            lastOperate = LastOperate.NUM;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            lastOperate = LastOperate.LEFT;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            lastOperate = LastOperate.RIGHT;
-        }
-
-
-        // -1 向左、0 不动、+1 向右。
         float direction = 0f;
-
-        direction += Convert.ToInt16(lastOperate);
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            direction = -1f;
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            direction = 1f;
+        }
 
         body.velocity = new Vector2(direction * moveSpeed, body.velocity.y);
         //转向
