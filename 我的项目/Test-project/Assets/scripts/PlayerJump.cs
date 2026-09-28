@@ -26,23 +26,18 @@ public class PlayerJump : MonoBehaviour
             soundServer = soundServerGo.GetComponent<SoundServer>();
         }
     }
-
-    private void FixedUpdate()
+    private void Update()
     {
-        if(dash.IsDashing||death.IsDead)
+        if (dash.IsDashing || death.IsDead)
         {
             jumpRequested = false;
             return;
         }
-        if (Input.GetKey(KeyCode.W)||Input.GetKey(KeyCode.Space))
+        Debug.Log("Jump Requested");
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
         {
             jumpRequested = true;
         }
-        else
-        {
-            jumpRequested = false;
-        }
-
         bool onGrounded = IsGrounded();
 
         if (jumpRequested && onGrounded)
@@ -51,10 +46,10 @@ public class PlayerJump : MonoBehaviour
 
             //jumpAudio.Play();
             soundServer.ApplySoundCallOneShot(transform.position, "Sounds/Player Jump");
+            jumpRequested = false;
         }
         animator.SetFloat("Jump", body.velocity.y);//跳跃动画
     }
-
     public bool IsGrounded()
     {
         Vector2 point = (Vector2)transform.position + groundCheckOffset;
