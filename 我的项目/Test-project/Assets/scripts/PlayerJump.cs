@@ -13,10 +13,6 @@ public class PlayerJump : MonoBehaviour
     private SoundServer soundServer;
     private PlayerDash dash;
     private Playerdeath death;
-
-    public float jumpCacheZone = 0.2f;
-
-    private float jumpCache = 0.0f;
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -32,47 +28,26 @@ public class PlayerJump : MonoBehaviour
     }
     private void Update()
     {
-        bool onGrounded = IsGrounded();
-        if (onGrounded)
-        {
-            if (jumpCache != 0.0f && jumpCache <= jumpCacheZone)
-            {
-                jumpCache = 0.0f;
-                jumpRequested = true;
-            }
-            else
-            {
-                jumpRequested = false;
-            }
-        }
-
         if (dash.IsDashing || death.IsDead)
         {
             jumpRequested = false;
             return;
         }
+        bool onGrounded = IsGrounded();
         //Debug.Log("Jump Requested");
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
         {
             jumpRequested = true;
         }
-        
-
-        if (jumpRequested)
+        else
         {
-            if (onGrounded)
-            {
-                body.velocity = new Vector2(body.velocity.x, jumpForce);
-
-                //jumpAudio.Play();
-                soundServer.ApplySoundCallOneShot(transform.position, "Sounds/Player Jump");
-                jumpRequested = false;
-            }
-            else
-            {
-                float dt = Time.deltaTime;
-                jumpCache += dt;
-            }
+            jumpRequested = false;
+        }
+        if (jumpRequested&&onGrounded)
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpForce);
+            soundServer.ApplySoundCallOneShot(transform.position, "Sounds/Player Jump");
+            jumpRequested = false;
         }
         animator.SetFloat("Jump", body.velocity.y);//跳跃动画
     }

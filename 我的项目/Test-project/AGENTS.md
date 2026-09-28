@@ -2,7 +2,7 @@
 - Project name: Test-project
 - Unity version: Unity 2022.3.55f1c1
 - Active game object:
-  - Name: Player
+  - Name: Grid
   - Tag: Untagged
-  - Layer: Default
+  - Layer: Ground
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
