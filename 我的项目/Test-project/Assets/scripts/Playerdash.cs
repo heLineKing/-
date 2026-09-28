@@ -5,6 +5,14 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashCooldown;
     [SerializeField] private int maxDashCount;
+    [Header("残影特效")]
+    [SerializeField] private bool enableDashGhost = true;
+    [SerializeField] private float ghostInterval = 0.03f;
+    [SerializeField] private float ghostLifetime = 0.25f;
+    [SerializeField] private float ghostDepthOffset = 0.1f;
+    [SerializeField] private Color ghostColor = new Color(0.55f, 0.85f, 1f, 0.6f);
+
+    private float ghostTimer;
     private float dashTimer;
     private float cooldownTimer;
     private Rigidbody2D body;
@@ -47,6 +55,7 @@ public class PlayerDash : MonoBehaviour
             dashTimer = dashDuration;
             cooldownTimer = dashCooldown + dashDuration;
             dashCount++;
+            ghostTimer = 0f;
         }
     }
 
@@ -69,6 +78,39 @@ public class PlayerDash : MonoBehaviour
         {
             body.gravityScale = 0f;
             body.velocity = new Vector2(spriteRenderer.flipX ? -dashSpeed : dashSpeed, 0f);
+
+            if (enableDashGhost)
+            {
+                ghostTimer -= Time.fixedDeltaTime;
+                if (ghostTimer <= 0f)
+                {
+                    ghostTimer = ghostInterval;
+                    SpawnGhost();
+                }
+            }
         }
+    }
+
+    private void SpawnGhost()
+    {
+        if (spriteRenderer.sprite == null)
+        {
+            return;
+        }
+
+        GameObject ghostGo = new GameObject("DashGhost");
+        ghostGo.transform.SetPositionAndRotation(new Vector3(transform.position.x,transform.position.y,transform.position.z + ghostDepthOffset),transform.rotation);
+        ghostGo.transform.localScale = transform.lossyScale;
+
+        ghostGo.AddComponent<SpriteRenderer>();
+        DashGhost ghost = ghostGo.AddComponent<DashGhost>();
+
+        ghost.Init(
+            spriteRenderer.sprite,
+            spriteRenderer.flipX,
+            spriteRenderer.sortingLayerID,
+            spriteRenderer.sortingOrder,
+            ghostColor,
+            ghostLifetime);
     }
 }

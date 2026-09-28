@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Playerdeath : MonoBehaviour
@@ -40,6 +39,7 @@ public class Playerdeath : MonoBehaviour
         box.enabled = false;
         yield return new WaitForSecondsRealtime(1);
         body.position = SpawnPoint.transform.position;
+        body.velocity = Vector2.zero;
         animator.SetBool("Death", false);
         IsDead = false;
         box.enabled = true;

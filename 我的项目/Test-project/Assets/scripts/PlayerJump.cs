@@ -12,8 +12,7 @@ public class PlayerJump : MonoBehaviour
     private AudioSource jumpAudio;
     private SoundServer soundServer;
     private PlayerDash dash;
-    private Playerdeath death
-        ;
+    private Playerdeath death;
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
