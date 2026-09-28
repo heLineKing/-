@@ -12,6 +12,8 @@ public class SoundCallComponent : MonoBehaviour
     public SoundServer server;
 
     public SoundCallPlayType PlayTypeMode;
+
+    public GameObject Trace;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,10 +23,17 @@ public class SoundCallComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GetAudioSource().isPlaying)
+        if (GetAudioSource().isPlaying)
         {
-            Release();
+            if (Trace != null)
+            {
+                gameObject.transform.position = Trace.transform.position;
+            }
         }
+        else
+            {
+                Release();
+            }
     }
 
     public void Apply(SoundCallPlayType PlayModeType = SoundCallPlayType.OneShot)
@@ -75,6 +84,7 @@ public class SoundCallComponent : MonoBehaviour
 
     public void Release()
     {
+        Trace = null;
         AudioSource audio = GetAudioSource();
         //audio.clip = null;
         gameObject.SetActive(false);

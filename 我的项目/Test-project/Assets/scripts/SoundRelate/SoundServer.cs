@@ -91,4 +91,48 @@ public class SoundServer : MonoBehaviour
         audioCallComponent.StartPlay();
         return audioCallComponent;
     }
+
+    public SoundCallComponent ApplySoundCallOneShotTraceGo(GameObject Go, string clip_resourse_path, float volume = 1)
+    {
+        SoundCallComponent audioCallComponent = ApplySoundCall();
+        if (audioCallComponent == null)
+        {
+            Debug.LogError("播放失败：无有效的管理组件");
+            return audioCallComponent;
+        }
+        audioCallComponent.transform.position = Go.transform.position;
+        audioCallComponent.Trace = Go;
+        audioCallComponent.ClipInit(clip_resourse_path, volume);
+        audioCallComponent.StartPlay();
+        return audioCallComponent;
+    }
+
+    public SoundCallComponent StartSoundCallLoop(Vector3 pos, string clip_resourse_path, float volume = 1)
+    {
+        SoundCallComponent audioCallComponent = ApplySoundCall(SoundCallPlayType.Cycle);
+        if (audioCallComponent == null)
+        {
+            Debug.LogError("播放失败：无有效的管理组件");
+            return audioCallComponent;
+        }
+        audioCallComponent.transform.position = pos;
+        audioCallComponent.ClipInit(clip_resourse_path, volume);
+        audioCallComponent.StartPlay();
+        return audioCallComponent;
+    }
+
+    public SoundCallComponent StartSoundCallLoopTraceGo(GameObject Go, string clip_resourse_path, float volume = 1)
+    {
+        SoundCallComponent audioCallComponent = ApplySoundCall(SoundCallPlayType.Cycle);
+        if (audioCallComponent == null)
+        {
+            Debug.LogError("播放失败：无有效的管理组件");
+            return audioCallComponent;
+        }
+        audioCallComponent.transform.position = Go.transform.position;
+        audioCallComponent.Trace = Go;
+        audioCallComponent.ClipInit(clip_resourse_path, volume);
+        audioCallComponent.StartPlay();
+        return audioCallComponent;
+    }
 }
