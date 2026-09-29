@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7192981692615983233}
   - component: {fileID: 6155736949884717333}
   - component: {fileID: 4850511276641856813}
-  - component: {fileID: 3352632313998126391}
   - component: {fileID: 6528027275365499523}
+  - component: {fileID: 8220052459567226750}
   m_Layer: 0
   m_Name: collect stars
   m_TagString: Untagged
@@ -108,18 +108,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3352632313998126391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2681612676097979809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5012f8d7c46c2604286ab4c31978c1a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &6528027275365499523
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -165,3 +153,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4011993, y: 1.3195467}
   m_EdgeRadius: 0
+--- !u!114 &8220052459567226750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2681612676097979809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3105c0bf41597bf45b09845de8af835f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

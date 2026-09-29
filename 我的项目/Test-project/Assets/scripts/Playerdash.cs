@@ -11,15 +11,16 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float ghostInterval = 0.03f;
     [SerializeField] private float ghostLifetime = 0.25f;
     [SerializeField] private float ghostDepthOffset = 0.1f;
-    [SerializeField] private Color ghostColor = new Color(0.55f, 0.85f, 1f, 0.6f);
-
+    [SerializeField] private Color ghostColor1;
+    [SerializeField] private Color ghostColor2;
+    [Header("内部变量")]
     private float ghostTimer;
     private float dashTimer;
     private float cooldownTimer;
     private Rigidbody2D body;
     private SpriteRenderer spriteRenderer;
     private float defaultGravityScale;
-    private int dashCount;
+    public int dashCount;
     private Vector2 direction;
     private PlayerJump jump;
     private Playerdeath death;
@@ -32,16 +33,13 @@ public class PlayerDash : MonoBehaviour
         jump = GetComponent<PlayerJump>();
         death = GetComponent<Playerdeath>();
     }
+
     private void Update()
     {
         if (death.IsDead)
         {
             dashTimer = 0f;
             return;
-        }
-        if (jump.IsGrounded())
-        {
-            dashCount = 0;
         }
         // 冷却倒计时
         if (cooldownTimer > 0f)
@@ -53,6 +51,10 @@ public class PlayerDash : MonoBehaviour
             cooldownTimer = 0f;
         }
         if (IsDashing) return;
+        if (jump.IsGrounded())
+        {
+            dashCount = 0;
+        }
         direction.x = getx() * dashSpeed;
         direction.y = gety() * dashSpeed;
         if (Input.GetKeyDown(KeyCode.L) && cooldownTimer <= 0f && !IsDashing && maxDashCount > dashCount)
@@ -61,6 +63,8 @@ public class PlayerDash : MonoBehaviour
             cooldownTimer = dashCooldown + dashDuration;
             dashCount++;
             ghostTimer = 0f;
+            if (dashCount == 1) dashcolor = ghostColor1;
+            else dashcolor = ghostColor2;
         }
     }
     private int getx()
@@ -128,7 +132,7 @@ public class PlayerDash : MonoBehaviour
             }
         }
     }
-
+    Color dashcolor;
     private void SpawnGhost()
     {
         if (spriteRenderer.sprite == null)
@@ -148,7 +152,11 @@ public class PlayerDash : MonoBehaviour
             spriteRenderer.flipX,
             spriteRenderer.sortingLayerID,
             spriteRenderer.sortingOrder,
-            ghostColor,
+            dashcolor,
             ghostLifetime);
+    }
+    public void RefreshDash()
+    {
+        dashCount = 0;
     }
 }
