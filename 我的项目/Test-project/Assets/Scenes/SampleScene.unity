@@ -5724,7 +5724,7 @@ Transform:
   m_GameObject: {fileID: 814188407}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.27, y: 3.66, z: 0}
+  m_LocalPosition: {x: -7.27, y: 3.66, z: -1}
   m_LocalScale: {x: 0.58, y: 0.58, z: 0.58}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -5870,7 +5870,7 @@ MonoBehaviour:
   dashSpeed: 15
   dashDuration: 0.2
   dashCooldown: 0.2
-  maxDashCount: 1
+  maxDashCount: 2
   enableDashGhost: 1
   ghostInterval: 0.05
   ghostLifetime: 0.3

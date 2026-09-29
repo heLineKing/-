@@ -38,7 +38,10 @@ public class Playerdeath : MonoBehaviour
         animator.SetFloat("speed", 0f);
         box.enabled = false;
         yield return new WaitForSecondsRealtime(1);
-        body.position = SpawnPoint.transform.position;
+        Vector3 a= SpawnPoint.transform.position;
+        a.z = -1;
+        body.position = a;
+        transform.position = a;
         body.velocity = Vector2.zero;
         animator.SetBool("Death", false);
         IsDead = false;
