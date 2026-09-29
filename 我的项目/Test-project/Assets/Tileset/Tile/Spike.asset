@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: SunnyLand Tiles_105
+  m_Name: Spike
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -2037925265, guid: 9bcfd10f4b117ea4ebb5682e5337e612, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7cb199f90d867e44b36dd3344977f16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
