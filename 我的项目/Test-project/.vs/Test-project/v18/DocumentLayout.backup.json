@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\collectionsdiamonds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\scripts\\collectionsdiamonds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\Playerdash.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\scripts\\Playerdash.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|d:\\unity\\project\\team\\\u6211\u7684\u9879\u76EE\\test-project\\assets\\scripts\\collectionsstars.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87C66557-22EC-326B-E574-FC88B189EFE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\collectionsstars.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "collectionsdiamonds.cs",
-              "DocumentMoniker": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\collectionsdiamonds.cs",
-              "RelativeDocumentMoniker": "Assets\\scripts\\collectionsdiamonds.cs",
-              "ToolTip": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\collectionsdiamonds.cs",
-              "RelativeToolTip": "Assets\\scripts\\collectionsdiamonds.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "collectionsstars.cs",
+              "DocumentMoniker": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\collectionsstars.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\collectionsstars.cs",
+              "ToolTip": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\collectionsstars.cs",
+              "RelativeToolTip": "Assets\\scripts\\collectionsstars.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-29T14:14:17.168Z",
+              "WhenOpened": "2026-09-29T14:20:00.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Playerdash.cs",
+              "DocumentMoniker": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\Playerdash.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Playerdash.cs",
+              "ToolTip": "D:\\Unity\\project\\Team\\\u6211\u7684\u9879\u76EE\\Test-project\\Assets\\scripts\\Playerdash.cs",
+              "RelativeToolTip": "Assets\\scripts\\Playerdash.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAgwEIAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-29T14:16:20.823Z",
               "EditorCaption": ""
             }
           ]

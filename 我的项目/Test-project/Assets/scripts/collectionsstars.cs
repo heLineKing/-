@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class collectionsstars : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
+    private Collider2D triggerCollider;
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        triggerCollider = GetComponent<Collider2D>();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         
@@ -11,18 +18,15 @@ public class collectionsstars : MonoBehaviour
         {
             PlayerDash dash = other.GetComponent<PlayerDash>();
             dash.RefreshDash();
-            Destroy(gameObject);
+            StartCoroutine(Refresh());
         }
     }
-    // Start is called before the first frame update
-    void Start()
+    private IEnumerator Refresh()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        spriteRenderer.enabled = false;
+        triggerCollider.enabled = false;
+        yield return new WaitForSecondsRealtime(3);
+        spriteRenderer.enabled = true;
+        triggerCollider.enabled = true;
     }
 }
