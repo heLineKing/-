@@ -1,6 +1,7 @@
 using UnityEngine;
 public class PlayerDash : MonoBehaviour
 {
+    [Header("冲刺属性")]
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashCooldown;
@@ -19,6 +20,7 @@ public class PlayerDash : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private float defaultGravityScale;
     private int dashCount;
+    private Vector2 direction;
     private PlayerJump jump;
     private Playerdeath death;
     public bool IsDashing => dashTimer > 0f;
@@ -32,7 +34,7 @@ public class PlayerDash : MonoBehaviour
     }
     private void Update()
     {
-        if(death.IsDead)
+        if (death.IsDead)
         {
             dashTimer = 0f;
             return;
@@ -50,7 +52,10 @@ public class PlayerDash : MonoBehaviour
         {
             cooldownTimer = 0f;
         }
-        if (Input.GetKeyDown(KeyCode.L) && cooldownTimer <= 0f && !IsDashing && maxDashCount>dashCount)
+        if (IsDashing) return;
+        direction.x = getx() * dashSpeed;
+        direction.y = gety() * dashSpeed;
+        if (Input.GetKeyDown(KeyCode.L) && cooldownTimer <= 0f && !IsDashing && maxDashCount > dashCount)
         {
             dashTimer = dashDuration;
             cooldownTimer = dashCooldown + dashDuration;
@@ -58,10 +63,39 @@ public class PlayerDash : MonoBehaviour
             ghostTimer = 0f;
         }
     }
-
+    private int getx()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            return -1;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    private int gety()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            return 1;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            return -1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
     private void FixedUpdate()
     {
-        if(death.IsDead)
+        if (death.IsDead)
         {
             return;
         }
@@ -70,14 +104,18 @@ public class PlayerDash : MonoBehaviour
         {
             dashTimer -= Time.fixedDeltaTime;
         }
-        if (dashTimer <= 0f)
+        if (dashTimer < 0f)
         {
             body.gravityScale = defaultGravityScale;
+            direction.x /= 3;
+            direction.y /= 3;
+            body.velocity = direction;
+            dashTimer = 0f;
         }
         if (IsDashing)
         {
             body.gravityScale = 0f;
-            body.velocity = new Vector2(spriteRenderer.flipX ? -dashSpeed : dashSpeed, 0f);
+            body.velocity = direction;
 
             if (enableDashGhost)
             {
@@ -99,7 +137,7 @@ public class PlayerDash : MonoBehaviour
         }
 
         GameObject ghostGo = new GameObject("DashGhost");
-        ghostGo.transform.SetPositionAndRotation(new Vector3(transform.position.x,transform.position.y,transform.position.z + ghostDepthOffset),transform.rotation);
+        ghostGo.transform.SetPositionAndRotation(new Vector3(transform.position.x, transform.position.y, transform.position.z + ghostDepthOffset), transform.rotation);
         ghostGo.transform.localScale = transform.lossyScale;
 
         ghostGo.AddComponent<SpriteRenderer>();
