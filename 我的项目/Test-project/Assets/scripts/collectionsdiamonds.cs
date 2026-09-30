@@ -6,18 +6,12 @@ public class collectionsdiamonds : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) {Destroy(gameObject); }
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        if (other.CompareTag("Player"))
+        {
+            PlayerDash dash = other.GetComponent<PlayerDash>();
+            dash.addmaxdashcount();
+            gameObject.SetActive(false);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -2,7 +2,7 @@
 - Project name: Test-project
 - Unity version: Unity 2022.3.55f1c1
 - Active game object:
-  - Name: collect stars
+  - Name: diamonds
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

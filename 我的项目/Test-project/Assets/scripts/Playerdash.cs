@@ -33,7 +33,6 @@ public class PlayerDash : MonoBehaviour
         jump = GetComponent<PlayerJump>();
         death = GetComponent<Playerdeath>();
     }
-
     private void Update()
     {
         if (death.IsDead)
@@ -158,5 +157,9 @@ public class PlayerDash : MonoBehaviour
     public void RefreshDash()
     {
         dashCount = 0;
+    }
+    public void addmaxdashcount()
+    {
+        maxDashCount++;
     }
 }
